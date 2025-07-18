@@ -14,7 +14,7 @@ Full setup:
 
 ```js
 import { RedisStore } from "@fastify-extra/connect-redis";
-import session from "@fastify/session";
+import fastifySession from "@fastify/session";
 import { createClient } from "redis";
 
 // Initialize client.
@@ -28,14 +28,11 @@ let redisStore = new RedisStore({
 });
 
 // Initialize session storage.
-app.use(
-  session({
-    store: redisStore,
-    resave: false, // required: force lightweight session keep alive (touch)
-    saveUninitialized: false, // recommended: only save session when data exists
-    secret: "keyboard cat",
-  })
-);
+app.register(fastifySession, {
+  store: redisStore,
+  saveUninitialized: false, // recommended: only save session when data exists
+  secret: "keyboard cat",
+});
 ```
 
 ### RedisStore(options)
