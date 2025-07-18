@@ -1,13 +1,11 @@
-[![build](https://github.com/tj/connect-redis/actions/workflows/build.yml/badge.svg)](https://github.com/tj/connect-redis/actions/workflows/build.yml) [![npm](https://img.shields.io/npm/v/connect-redis.svg)](https://npmjs.com/package/connect-redis) ![Downloads](https://img.shields.io/npm/dm/connect-redis.svg)
-
-**connect-redis** provides Redis session storage for Express.
+**@fastify-extra/connect-redis** provides Redis session storage for Fastify.
 
 ## Installation
 
-**connect-redis** requires `express-session` and [`redis`][1]:
+**@fastify-extra/connect-redis** requires `@fastify/session` and [`redis`][1]:
 
 ```sh
-npm install redis connect-redis express-session
+npm install redis @fastify-extra/connect-redis @fastify/session
 ```
 
 ## API
@@ -15,19 +13,19 @@ npm install redis connect-redis express-session
 Full setup:
 
 ```js
-import {RedisStore} from "connect-redis"
-import session from "express-session"
-import {createClient} from "redis"
+import { RedisStore } from "@fastify-extra/connect-redis";
+import session from "@fastify/session";
+import { createClient } from "redis";
 
 // Initialize client.
-let redisClient = createClient()
-redisClient.connect().catch(console.error)
+let redisClient = createClient();
+redisClient.connect().catch(console.error);
 
 // Initialize store.
 let redisStore = new RedisStore({
   client: redisClient,
   prefix: "myapp:",
-})
+});
 
 // Initialize session storage.
 app.use(
@@ -36,8 +34,8 @@ app.use(
     resave: false, // required: force lightweight session keep alive (touch)
     saveUninitialized: false, // recommended: only save session when data exists
     secret: "keyboard cat",
-  }),
-)
+  })
+);
 ```
 
 ### RedisStore(options)
@@ -54,11 +52,11 @@ Key prefix in Redis (default: `sess:`).
 
 **Note**: This prefix appends to whatever prefix you may have set on the `client` itself.
 
-**Note**: You may need unique prefixes for different applications sharing the same Redis instance. This limits bulk commands exposed in `express-session` (like `length`, `all`, `keys`, and `clear`) to a single application's data.
+**Note**: You may need unique prefixes for different applications sharing the same Redis instance. This limits bulk commands exposed in `@fastify/session` (like `length`, `all`, `keys`, and `clear`) to a single application's data.
 
 ##### ttl
 
-If the session cookie has a `expires` date, `connect-redis` will use it as the TTL.
+If the session cookie has a `expires` date, `@fastify-extra/connect-redis` will use it as the TTL.
 
 Otherwise, it will expire the session using the `ttl` option (default: `86400` seconds or one day).
 
@@ -73,23 +71,21 @@ interface RedisStoreOptions {
 
 **Note**: The TTL is reset every time a user interacts with the server. You can disable this behavior in _some_ instances by using `disableTouch`.
 
-**Note**: `express-session` does not update `expires` until the end of the request life cycle. _Calling `session.save()` manually beforehand will have the previous value_.
+**Note**: `@fastify/session` does not update `expires` until the end of the request life cycle. _Calling `session.save()` manually beforehand will have the previous value_.
 
 ##### disableTouch
 
 Disables resetting the TTL when using `touch` (default: `false`)
 
-The `express-session` package uses `touch` to signal to the store that the user has interacted with the session but hasn't changed anything in its data. Typically, this helps keep the users session alive if session changes are infrequent but you may want to disable it to cut down the extra calls or to prevent users from keeping sessions open too long. Also consider enabling if you store a lot of data on the session.
-
-Ref: <https://github.com/expressjs/session#storetouchsid-session-callback>
+The `@fastify/session` package uses `touch` to signal to the store that the user has interacted with the session but hasn't changed anything in its data. Typically, this helps keep the users session alive if session changes are infrequent but you may want to disable it to cut down the extra calls or to prevent users from keeping sessions open too long. Also consider enabling if you store a lot of data on the session.
 
 ##### disableTTL
 
 Disables key expiration completely (default: `false`)
 
-This option disables key expiration requiring the user to manually manage key cleanup outside of `connect-redis`. Only use if you know what you are doing and have an exceptional case where you need to manage your own expiration in Redis.
+This option disables key expiration requiring the user to manually manage key cleanup outside of `@fastify-extra/connect-redis`. Only use if you know what you are doing and have an exceptional case where you need to manage your own expiration in Redis.
 
-**Note**: This has no effect on `express-session` setting cookie expiration.
+**Note**: This has no effect on `@fastify/session` setting cookie expiration.
 
 ##### serializer
 
@@ -99,8 +95,8 @@ Optionally `parse` method can be async if need be.
 
 ```ts
 interface Serializer {
-  parse(string): object | Promise<object>
-  stringify(object): string
+  parse(string): object | Promise<object>;
+  stringify(object): string;
 }
 ```
 

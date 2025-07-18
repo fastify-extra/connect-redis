@@ -1,9 +1,8 @@
 {
-  "name": "connect-redis",
-  "description": "Redis session store for Connect",
-  "version": "9.0.0",
-  "author": "TJ Holowaychuk <tj@vision-media.ca>",
-  "contributors": ["Marc Harter <wavded@gmail.com>"],
+  "name": "@fastify-extra/connect-redis",
+  "description": "Redis session store for Connect (fastify)",
+  "version": "1.0.0",
+  "author": "Behzad Khalifeh <bkhalifeh@protonmail.com>",
   "license": "MIT",
   "type": "module",
   "main": "./dist/connect-redis.cjs",
@@ -30,14 +29,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/tj/connect-redis.git"
+    "url": "git+ssh://git@github.com/fastify-extra/connect-redis.git"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/express-session": "^1.18.2",
+    "@fastify/session": "^11.1.0",
     "@types/node": "^22.15.31",
     "@vitest/coverage-v8": "^3.2.3",
-    "express-session": "^1.18.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
@@ -46,13 +44,18 @@
   },
   "peerDependencies": {
     "redis": ">=5",
-    "express-session": ">=1"
+    "@fastify/session": ">=10"
   },
   "engines": {
     "node": ">=18"
   },
   "bugs": {
-    "url": "https://github.com/tj/connect-redis/issues"
+    "url": "https://github.com/fastify-extra/connect-redis/issues"
   },
-  "keywords": ["connect", "redis", "session", "express"]
+  "keywords": [
+    "connect",
+    "redis",
+    "session",
+    "express"
+  ]
 }

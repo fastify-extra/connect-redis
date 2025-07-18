@@ -1,6 +1,6 @@
 {
   "files": {
-    "ignore": ["dist", "pnpm-*.yaml", "coverage"]
+    "ignore": ["*.ts", "*.json"]
   },
   "formatter": {
     "enabled": true,
@@ -17,7 +17,8 @@
         "useConst": "off",
         "useTemplate": "off",
         "noParameterAssign": "off",
-        "useSingleVarDeclarator": "off"
+        "useSingleVarDeclarator": "off",
+        "noUselessElse": "off"
       },
       "correctness": {
         "noUnusedImports": "error"
@@ -26,15 +27,16 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noImplicitAnyLet": "off"
+      },
+      "complexity": {
+        "useLiteralKeys": "off"
       }
     }
   },
   "javascript": {
-    "formatter": {
-      "semicolons": "asNeeded"
-    }
+    "formatter": {}
   },
   "organizeImports": {
-    "enabled": true
+    "enabled": false
   }
 }

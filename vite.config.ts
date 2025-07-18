@@ -1,19 +1,19 @@
-import {copyFileSync} from "node:fs"
-import dts from "vite-plugin-dts"
-import {defineConfig} from "vitest/config"
+import { copyFileSync } from "node:fs";
+import dts from "vite-plugin-dts";
+import { defineConfig } from "vitest/config";
 
 // https://vitest.dev/config/
 export default defineConfig({
   build: {
     lib: {
       entry: "index.ts",
-      name: "connect-redis",
+      name: "@fastify-extra/connect-redis",
       formats: ["es", "cjs"],
     },
     emptyOutDir: true,
     minify: false,
     rollupOptions: {
-      external: ["express-session"],
+      external: ["@fastify/session"],
       treeshake: false,
     },
     target: "node18",
@@ -24,7 +24,7 @@ export default defineConfig({
       rollupTypes: true,
       insertTypesEntry: true,
       afterBuild: () => {
-        copyFileSync("dist/connect-redis.d.ts", "dist/connect-redis.d.cts")
+        copyFileSync("dist/connect-redis.d.ts", "dist/connect-redis.d.cts");
       },
     }),
   ],
@@ -34,4 +34,4 @@ export default defineConfig({
       reporter: ["text"],
     },
   },
-})
+});
