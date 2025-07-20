@@ -1,4 +1,4 @@
-[![build](https://github.com/fastify-extra/connect-redis/actions/workflows/build.yml/badge.svg)](https://github.com/fastify-extra/connect-redis/actions/workflows/build.yml) [![npm](https://img.shields.io/npm/v/@fastify-extra/connect-redis.svg)](https://npmjs.com/package/@fastify-extra/connect-redis) ![Downloads](https://img.shields.io/npm/dm/@fastify-extra/connect-redis.svg)
+[![npm](https://img.shields.io/npm/v/@fastify-extra/connect-redis.svg)](https://npmjs.com/package/@fastify-extra/connect-redis) ![Downloads](https://img.shields.io/npm/dm/@fastify-extra/connect-redis.svg)
 
 **@fastify-extra/connect-redis** provides Redis session storage for Fastify.
 
