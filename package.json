@@ -1,7 +1,7 @@
 {
   "name": "@fastify-extra/connect-redis",
   "description": "Redis session store for Connect (fastify)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Behzad Khalifeh <bkhalifeh@protonmail.com>",
   "license": "MIT",
   "type": "module",
