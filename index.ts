@@ -1,4 +1,4 @@
-import { SessionStore, CookieOptions } from "@fastify/session";
+import { SessionStore } from "@fastify/session";
 import type { RedisClientType, RedisClusterType } from "redis";
 
 type Callback = (_err?: unknown, _data?: any) => any;
@@ -10,8 +10,17 @@ function optionalCb(err: unknown, data: unknown, cb?: Callback): unknown {
 }
 
 export interface SessionData {
-  id?: string;
-  cookie: CookieOptions;
+  cookie: {
+    originalMaxAge: number | null;
+    maxAge?: number;
+    signed?: boolean;
+    expires?: Date | null;
+    httpOnly?: boolean;
+    path?: string;
+    domain?: string;
+    secure?: boolean | "auto";
+    sameSite?: boolean | "lax" | "strict" | "none";
+  };
 }
 
 interface Serializer {
@@ -146,18 +155,14 @@ export class RedisStore implements SessionStore {
   }
 
   async all(cb?: Callback) {
-    const len = this.prefix.length;
     try {
       const keys = await this.getAllKeys();
       if (keys.length === 0) return optionalCb(null, [], cb);
 
       const data = await this.client.mGet(keys);
-      const results = data.reduce((acc, raw, idx) => {
+      const results = data.reduce((acc, raw) => {
         if (!raw) return acc;
         const sess = this.serializer.parse(raw);
-        if (keys[idx]) {
-          sess.id = keys[idx].substring(len);
-        }
         acc.push(sess);
         return acc;
       }, [] as SessionData[]);
